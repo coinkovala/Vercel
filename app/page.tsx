@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { supabase } from '../lib/supabaseClient'
 import { cn } from "@/lib/utils";
 import Link from 'next/link';
 import HyperText from "@/components/magicui/hyper-text";
@@ -96,19 +95,10 @@ export default function Home() {
     e.preventDefault()
     console.log('Submitting:', { name, email }) // Debug log
 
-    const { data, error } = await supabase
-      .from('users')
-      .insert([{ name, email }])
-    
-    if (error) {
-      console.error('Error inserting user:', error)
-      alert(`Error: ${error.message}`)
-    } else {
-      console.log('User inserted successfully:', data)
-      alert('User registered successfully!')
-      setName('')
-      setEmail('')
-    }
+    // Supabase kodu yerine basit bir alert kullanabiliriz
+    alert(`User registered: ${name}, ${email}`)
+    setName('')
+    setEmail('')
   }
 
   return (
