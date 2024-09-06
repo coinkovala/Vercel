@@ -25,7 +25,7 @@ export default function CancellationFlow({ onClose }: CancellationFlowProps) {
     <div className="w-full space-y-6">
       {step === 1 && (
         <>
-          <h2 className="text-2xl font-bold text-center text-gray-800">We regret to see you leave</h2>
+          <h2 className="text-2xl font-bold text-center text-gray-800">We are sorry to see you go</h2>
           <p className="text-center text-gray-600 mb-4">We have some options that might work better for you:</p>
           <div className="space-y-4">
             {[
