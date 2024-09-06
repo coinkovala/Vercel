@@ -19,7 +19,7 @@ export default function CancelSubscriptionPage() {
         <DialogTrigger asChild>
           <Button variant="destructive" className="px-8 py-4 text-lg">Cancel Subscription</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="w-[90vw] max-w-[528px]"> {/* Genişlik 528px olarak ayarlandı */}
           <CancellationFlow onClose={() => setOpen(false)} />
         </DialogContent>
       </Dialog>

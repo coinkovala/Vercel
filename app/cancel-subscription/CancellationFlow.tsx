@@ -10,8 +10,8 @@ interface CancellationFlowProps {
 
 export default function CancellationFlow({ onClose }: CancellationFlowProps) {
   const [step, setStep] = useState(1)
-  const [action, setAction] = useState('')
-  const [newPlan, setNewPlan] = useState('')
+  const [action, setAction] = useState('pause') // Default olarak 'pause' seçili
+  const [newPlan, setNewPlan] = useState('monthly') // Default olarak 'monthly' seçili
 
   const handleNext = () => setStep(step + 1)
   const handleBack = () => setStep(step - 1)
@@ -22,7 +22,7 @@ export default function CancellationFlow({ onClose }: CancellationFlowProps) {
   }
 
   return (
-    <div className="w-full max-w-md mx-auto space-y-6">
+    <div className="w-full space-y-6">
       {step === 1 && (
         <>
           <h2 className="text-2xl font-bold text-center text-gray-800">We regret to see you leave</h2>
@@ -69,7 +69,6 @@ export default function CancellationFlow({ onClose }: CancellationFlowProps) {
                 ? 'bg-[rgba(222,53,11,1)] hover:bg-[rgba(200,48,10,1)]'
                 : 'bg-[#008847] hover:bg-[#007a3f]'
             }`}
-            disabled={!action}
           >
             Next
           </Button>
@@ -77,8 +76,8 @@ export default function CancellationFlow({ onClose }: CancellationFlowProps) {
       )}
 
       {step === 2 && (
-        <>
-          <h2 className="text-2xl font-bold text-center text-gray-800">
+        <div>
+          <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">
             {action === 'pause' && 'Pause Your Subscription'}
             {action === 'downgrade' && 'Switch to a Lower-Tier Plan'}
             {action === 'cancel' && 'Confirm Cancellation'}
@@ -108,12 +107,19 @@ export default function CancellationFlow({ onClose }: CancellationFlowProps) {
                   </div>
                 ))}
               </div>
-              {newPlan && (
-                <p className="text-sm text-gray-600 mt-4">
-                  Your plan will be changed to {newPlan === "monthly" ? "Monthly ($19.95 per month)" : "Semi-Annual / Quarterly ($49.95 per quarter)"} billed every {newPlan === "monthly" ? "month" : "quarter"}. 
-                  {newPlan === "monthly" && " Refund of $80 will be processed by your bank or PayPal in 7-10 business days."}
-                </p>
-              )}
+              <div className="h-24"> {/* Sabit yükseklik */}
+                {newPlan === 'monthly' && (
+                  <p className="text-sm text-gray-600">
+                    Your plan will be changed to Monthly ($19.95 per month) billed every month. 
+                    Refund of $80 will be processed by your bank or PayPal in 7-10 business days.
+                  </p>
+                )}
+                {newPlan === 'quarterly' && (
+                  <p className="text-sm text-gray-600">
+                    Your plan will be changed to Semi-Annual / Quarterly ($49.95 per quarter) billed every quarter.
+                  </p>
+                )}
+              </div>
             </div>
           )}
           {action === 'cancel' && (
@@ -143,7 +149,7 @@ export default function CancellationFlow({ onClose }: CancellationFlowProps) {
               Confirm
             </Button>
           </div>
-        </>
+        </div>
       )}
     </div>
   )
